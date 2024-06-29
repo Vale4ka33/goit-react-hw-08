@@ -4,8 +4,8 @@ import * as Yup from "yup";
 import { useId } from "react";
 import css from "./ContactForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addContact } from "../../redux/contactsOps";
-import { selectError, selectLoading } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/contacts/operations";
+import { selectError, selectLoading } from "../../redux/contacts/slice";
 
 const FormSchema = Yup.object().shape({
   name: Yup.string()

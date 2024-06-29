@@ -2,8 +2,8 @@ import css from "./Contact.module.css";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMdPerson } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteContact } from "../../redux/contactsOps";
-import { selectError, selectLoading } from "../../redux/contactsSlice";
+import { deleteContact } from "../../redux/contacts/operations";
+import { selectError, selectLoading } from "../../redux/contacts/slice";
 
 const Contact = ({ id, name, number }) => {
   const dispatch = useDispatch();

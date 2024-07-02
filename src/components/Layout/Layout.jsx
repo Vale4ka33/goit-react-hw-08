@@ -1,5 +1,9 @@
+import { AppBar } from "@mui/material";
+
 const Layout = () => {
-  return <div></div>;
+  return <div>
+    <AppBar/>
+  </div>;
 };
 
 export default Layout;

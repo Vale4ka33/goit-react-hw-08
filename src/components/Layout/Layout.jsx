@@ -1,4 +1,4 @@
-import { AppBar } from "@mui/material";
+import AppBar from "../AppBar/AppBar";
 
 const Layout = () => {
   return <div>

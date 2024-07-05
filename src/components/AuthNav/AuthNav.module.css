@@ -1,0 +1,21 @@
+.authContainer{
+    display: flex;
+    gap: 15px;
+}
+
+.authLink {
+    text-decoration: none;
+    color: #000000;
+    padding: 5px 10px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.authLink:hover {
+    color: #0056b3;
+}
+
+.active {
+    border-bottom: 2px solid #007bff;
+    color: #0056b3;
+}

@@ -6,10 +6,10 @@ import { Toaster } from "react-hot-toast";
 const LoginPage = () => {
   return (
     <div className={style.loginPageContainer}>
-      <h2>Log in</h2>
+      <h2 className={style.heading}>Log in</h2>
       <LoginForm />
-      <p>
-        or <Link to="/register">Register</Link>
+      <p className={style.registerLink}>
+        or <Link to="/register" className={style.link}>Register</Link>
       </p>
       <Toaster />
     </div>

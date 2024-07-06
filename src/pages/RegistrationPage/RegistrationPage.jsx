@@ -1,16 +1,19 @@
 import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
+import style from './RegistrationPage.module.css';
 
 const RegistrationPage = () => {
-  return <>
-      <h2>Register</h2>
+  return (
+    <div className={style.registrationPageContainer}>
+      <h2 className={style.title}>Register</h2>
       <RegistrationForm />
-      <p>
-        or <Link to="/login">Log in</Link>
+      <p className={style.loginLink}>
+        or <Link to="/login" className={style.link}>Log in</Link>
       </p>
       <Toaster />
-    </>;
+    </div>
+  );
 };
 
 export default RegistrationPage;

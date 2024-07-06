@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import style from './RegistrationForm.module.css';
+import { register } from '../../redux/auth/operations';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Name is too short!').required('Name is required'),
@@ -55,23 +56,29 @@ const RegistrationForm = () => {
     >
       {({ errors, touched }) => (
         <Form className={style.form}>
-          <label htmlFor={nameFieldId}>Name</label>
-          <Field name="name" type="text" id={nameFieldId} className={style.input} />
-          {errors.name && touched.name && (
-            <span className={style.error}>{errors.name}</span>
-          )}
+          <div className={style.field}>
+            <label htmlFor={nameFieldId}>Name</label>
+            <Field name="name" type="text" id={nameFieldId} className={style.input} />
+            {errors.name && touched.name && (
+              <span className={style.error}>{errors.name}</span>
+            )}
+          </div>
 
-          <label htmlFor={emailFieldId}>Email</label>
-          <Field name="email" type="email" id={emailFieldId} className={style.input} />
-          {errors.email && touched.email && (
-            <span className={style.error}>{errors.email}</span>
-          )}
+          <div className={style.field}>
+            <label htmlFor={emailFieldId}>Email</label>
+            <Field name="email" type="email" id={emailFieldId} className={style.input} />
+            {errors.email && touched.email && (
+              <span className={style.error}>{errors.email}</span>
+            )}
+          </div>
 
-          <label htmlFor={passwordFieldId}>Password</label>
-          <Field name="password" type="password" id={passwordFieldId} className={style.input} />
-          {errors.password && touched.password && (
-            <span className={style.error}>{errors.password}</span>
-          )}
+          <div className={style.field}>
+            <label htmlFor={passwordFieldId}>Password</label>
+            <Field name="password" type="password" id={passwordFieldId} className={style.input} />
+            {errors.password && touched.password && (
+              <span className={style.error}>{errors.password}</span>
+            )}
+          </div>
 
           <button type="submit" className={style.btn}>
             Register

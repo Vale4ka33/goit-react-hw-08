@@ -24,17 +24,17 @@ const LoginForm = () => {
     >
       {({ isSubmitting }) => (
         <Form className={style.form}>
-          <div>
+          <div className={style.field}>
             <label htmlFor="email">Email</label>
-            <Field type="email" name="email" />
-            <ErrorMessage name="email" component="div" />
+            <Field type="email" name="email" className={style.input} />
+            <ErrorMessage name="email" component="div" className={style.error} />
           </div>
-          <div>
+          <div className={style.field}>
             <label htmlFor="password">Password</label>
-            <Field type="password" name="password" />
-            <ErrorMessage name="password" component="div" />
+            <Field type="password" name="password" className={style.input} />
+            <ErrorMessage name="password" component="div" className={style.error} />
           </div>
-          <button type="submit" disabled={isSubmitting}>
+          <button type="submit" className={style.btn} disabled={isSubmitting}>
             Log in
           </button>
         </Form>

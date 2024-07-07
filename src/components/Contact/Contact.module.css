@@ -29,3 +29,45 @@
 .iconPerson {
   font-size: 1.3em;
 }
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContent {
+  text-align: center;
+}
+
+.modalButtons {
+  margin-top: 20px;
+}
+
+.confirmButton,
+.cancelButton {
+  padding: 10px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.confirmButton {
+  background-color: #4caf50;
+  color: white;
+}
+
+.cancelButton {
+  background-color: #f44336;
+  color: white;
+}

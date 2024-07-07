@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import css from "./SearchBox.module.css";
+import style from "./SearchBox.module.css";
 import { useId } from "react";
 import { changeFilter } from "../../redux/filters/slice";
 import { selectNameFilter } from "../../redux/filters/selectors";
@@ -14,10 +14,10 @@ const SearchBox = () => {
   };
 
   return (
-    <div className={css.container}>
+    <div className={style.container}>
       <label htmlFor={searchId}>Find contacts by name</label>
       <input
-        className={css.searchInput}
+        className={style.searchInput}
         type="text"
         id={searchId}
         name="search"

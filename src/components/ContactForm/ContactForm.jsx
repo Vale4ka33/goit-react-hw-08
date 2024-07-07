@@ -2,10 +2,12 @@ import { Formik, Form, Field } from "formik";
 import { ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useId } from "react";
-import css from "./ContactForm.module.css";
+import style from "./ContactForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "../../redux/contacts/operations";
 import { selectError, selectLoading } from "../../redux/contacts/selectors";
+import { Toaster, toast } from "react-hot-toast";
+
 
 const FormSchema = Yup.object().shape({
   name: Yup.string()
@@ -13,22 +15,9 @@ const FormSchema = Yup.object().shape({
     .max(50, "Too Long!")
     .required("Required"),
   number: Yup.string()
-    .matches(/^\d{3}-\d{2}-\d{2}$/, "Phone number is not valid")
+    .matches(/^\d+$/, "Phone number is not valid")
     .required("Required"),
 });
-
-const formatPhoneNumber = (value) => {
-  if (!value) return value;
-
-  const phoneNumber = value.replace(/[^\d]/g, "");
-  if (phoneNumber.length <= 3) return phoneNumber;
-  if (phoneNumber.length <= 5)
-    return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(3)}`;
-  return `${phoneNumber.slice(0, 3)}-${phoneNumber.slice(
-    3,
-    5
-  )}-${phoneNumber.slice(5, 7)}`;
-};
 
 const ContactForm = () => {
   const dispatch = useDispatch();
@@ -38,10 +27,16 @@ const ContactForm = () => {
   const nameField = useId();
   const numberField = useId();
 
-  const handleSubmit = (values, actions) => {
-    dispatch(addContact(values));
-    actions.resetForm();
+  const handleSubmit = async (values, actions) => {
+    try {
+      await dispatch(addContact(values));
+      actions.resetForm();
+      toast.success("Contact added successfully!"); // Виклик повідомлення про успішне додавання
+    } catch (error) {
+      console.error("Failed to add contact", error);
+    }
   };
+
   return (
     <>
       {loading && <div>Loading...</div>}
@@ -51,41 +46,41 @@ const ContactForm = () => {
         onSubmit={handleSubmit}
         validationSchema={FormSchema}
       >
-        {({ setFieldValue, values }) => (
-          <Form className={css.formContainer}>
+        {() => (
+          <Form className={style.formContainer}>
             <label htmlFor={nameField}>Name</label>
             <Field
-              className={css.input}
+              className={style.input}
               type="text"
               name="name"
               id={nameField}
             />
-            <ErrorMessage className={css.error} name="name" component="span" />
+            <ErrorMessage
+              className={style.error}
+              name="name"
+              component="span"
+            />
 
             <label htmlFor={numberField}>Number</label>
             <Field
-              className={css.input}
+              className={style.input}
               type="text"
               name="number"
               id={numberField}
-              value={values.number}
-              onChange={(e) => {
-                const formattedPhoneNumber = formatPhoneNumber(e.target.value);
-                setFieldValue("number", formattedPhoneNumber);
-              }}
             />
             <ErrorMessage
-              className={css.error}
+              className={style.error}
               name="number"
               component="span"
             />
 
-            <button className={css.btn} type="submit">
+            <button className={style.btn} type="submit">
               Add contact
             </button>
           </Form>
         )}
       </Formik>
+      <Toaster position="bottom-right" reverseOrder={false} /> {/* Відображення Toaster */}
     </>
   );
 };

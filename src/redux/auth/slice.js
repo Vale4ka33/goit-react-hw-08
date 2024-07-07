@@ -53,7 +53,7 @@ const authSlice = createSlice({
             };
             state.token = null;
             state.isLoggedIn = false;
-            state.isRefreshing = false; // Додати скидання стану тут
+            state.isRefreshing = false; 
         });
     }
 });

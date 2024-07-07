@@ -21,29 +21,27 @@ function App() {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
+  return isRefreshing ? (
+    <p>Loading your information... Please wait </p>
+  ) : (
     <Layout>
-      {isRefreshing ? (
-        <p>Loading your information... Please wait </p>
-      ) : (
-        <Suspense fallback={<p>Loading...</p>}>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route
-              path="/register"
-              element={<RestrictedRoute component={RegistrationPage} />}
-            />
-            <Route
-              path="/login"
-              element={<RestrictedRoute component={LoginPage} />}
-            />
-            <Route
-              path="/contacts"
-              element={<PrivateRoute component={ContactsPage} />}
-            />
-          </Routes>
-        </Suspense>
-      )}
+      <Suspense fallback={<p>Loading...</p>}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/register"
+            element={<RestrictedRoute component={RegistrationPage} />}
+          />
+          <Route
+            path="/login"
+            element={<RestrictedRoute component={LoginPage} />}
+          />
+          <Route
+            path="/contacts"
+            element={<PrivateRoute component={ContactsPage} />}
+          />
+        </Routes>
+      </Suspense>
     </Layout>
   );
 }

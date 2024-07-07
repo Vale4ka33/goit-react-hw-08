@@ -1,35 +1,75 @@
-import css from "./Contact.module.css";
-import { FaPhoneAlt } from "react-icons/fa";
-import { IoMdPerson } from "react-icons/io";
+import React, { useState } from "react";
+import style from "./Contact.module.css";
+import Modal from "react-modal";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteContact } from "../../redux/contacts/operations";
 import { selectError, selectLoading } from "../../redux/contacts/selectors";
+import { IoMdPerson } from "react-icons/io";
+import { FaPhoneAlt } from "react-icons/fa";
+import { toast } from "react-hot-toast";
+
+Modal.setAppElement("#root");
 
 const Contact = ({ id, name, number }) => {
   const dispatch = useDispatch();
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
 
+  const [showModal, setShowModal] = useState(false);
+
   const handleDelete = () => {
-    dispatch(deleteContact(id));
+    setShowModal(true);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      await dispatch(deleteContact(id));
+      setShowModal(false);
+      toast.success("Contact deleted successfully!");
+    } catch (error) {
+      console.error("Failed to delete contact", error);
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowModal(false);
   };
 
   return (
-    <div className={css.contactContainer}>
+    <div className={style.contactContainer}>
       <div>
-        <div className={css.contactItem}>
-          <IoMdPerson className={css.iconPerson} />
+        <div className={style.contactItem}>
+          <IoMdPerson className={style.iconPerson} />
           <span>{name}</span>
         </div>
-        <div className={css.contactItem}>
-          <FaPhoneAlt className={css.iconPhone} />
+        <div className={style.contactItem}>
+          <FaPhoneAlt className={style.iconPhone} />
           <span>{number}</span>
         </div>
       </div>
-      <button className={css.btn} onClick={handleDelete} disabled={loading}>
+      <button className={style.btn} onClick={handleDelete} disabled={loading}>
         {loading ? "Deleting..." : "Delete"}
       </button>
-      {error && <div className={css.error}>Error: {error}</div>}
+      {error && <div className={style.error}>Error: {error}</div>}
+
+      <Modal
+        isOpen={showModal}
+        onRequestClose={cancelDelete}
+        className={style.modal}
+        overlayClassName={style.overlay}
+      >
+        <div className={style.modalContent}>
+          <p>Are you sure you want to delete this contact?</p>
+          <div className={style.modalButtons}>
+            <button className={style.confirmButton} onClick={confirmDelete}>
+              Confirm
+            </button>
+            <button className={style.cancelButton} onClick={cancelDelete}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
